@@ -17,16 +17,16 @@
     import xgboost as xgb
 
 
-##instal the training set
-    train = pd.read_csv("../input/labeledTrainData.tsv", header=0, delimiter="\t", quoting=3)
+# instal the training set
+     train = pd.read_csv("../input/labeledTrainData.tsv", header=0, delimiter="\t", quoting=3)
 
-##Converting into dataframe and View 
-    print('Dimension of Labeled Training Data: {}.'.format(train.shape))
-    print('There are {0} samples and {1} variables in the training data.'.format(train.shape[0], train.shape[1]))
-    display(train.head())
-    print(train.review[0])
+# Converting into dataframe and View 
+     print('Dimension of Labeled Training Data: {}.'.format(train.shape))
+     print('There are {0} samples and {1} variables in the training data.'.format(train.shape[0], train.shape[1]))
+     display(train.head())
+     print(train.review[0])
 
-###Clean the training set
+## Clean the training set
    # 1. Remove HTML
         reviews_text = list(map(lambda x: BeautifulSoup(x, 'html.parser').get_text(), reviews))
    # 2. Remove non-letters
@@ -86,7 +86,7 @@
         print(vocab)
 
 
-###Read the test data
+## Read the test data
         test = pd.read_csv("../input/testData.tsv", header=0, delimiter='\t', quoting=3)
 
 # Verify that there are 25,000 rows and 2 columns
@@ -98,16 +98,16 @@
         test_data_features = test_data_features.toarray()
 
 
-###Random Forest
-## Initialize a Random Forest classifier with 100 trees
+## Random Forest
+# Initialize a Random Forest classifier with 100 trees
         rf_clf = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=0) 
 
-## Use cross validation to evaluate the performance of Random Forest
+# Use cross validation to evaluate the performance of Random Forest
         rf_clf_error = 1 - cross_val_score(rf_clf, train_data_features, train['sentiment'],cv=5, scoring='accuracy', n_jobs=-1).mean()
         print('Random Forest training error: {:.4}'.format(rf_clf_error))
 
 
-###XG Boost
+## XG Boost
  # Create xgb trianing set and parameters
        dtrain = xgb.DMatrix(train_data_features, label=train['sentiment'])
        params = {'silent': 1, 'nthread': -1, 'eval_metric': 'error'}
