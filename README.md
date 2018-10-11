@@ -50,7 +50,7 @@
     
         return clean_review
    
-### OR Splitting the words into Vector in stead of 4 ### 
+### OR Splitting the words into Vector instead of 4 ### 
         train['review_words'] = train['review_letters_only'].apply(lambda x: x.lower().split())
 
         set_of_stopwords = set(stopwords.words("english"))
